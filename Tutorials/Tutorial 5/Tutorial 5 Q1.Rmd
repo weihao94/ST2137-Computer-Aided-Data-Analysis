@@ -1,0 +1,37 @@
+---
+title: "Tutorial 5 Q1 ST2137"
+author: "Wei Hao Khoong"
+date: "12 March 2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q1(b).
+
+### For Males
+
+```{r}
+# Add pdflatex to PATH: Sys.setenv(PATH=paste(Sys.getenv("PATH"),"C:/Users/Wei Hao/AppData/Local/Programs/MiKTeX 2.9/miktex/bin/x64",sep=";"))
+t5q1m <- matrix(c(67,28,46,54), nr=2, byrow=T)
+colnames(t5q1m) <- c("Candidate A", "Candidate B")
+rownames(t5q1m) <- c("Candidate A", "Candidate B")
+t5q1m
+```
+
+### For Females
+
+```{r}
+t5q1f <- matrix(c(58,42,37,61), nr=2, byrow=T)
+colnames(t5q1f) <- c("Candidate A", "Candidate B")
+rownames(t5q1f) <- c("Candidate A", "Candidate B")
+t5q1f
+```
+
+```{r}
+mcnemar.test(t5q1f)
+```

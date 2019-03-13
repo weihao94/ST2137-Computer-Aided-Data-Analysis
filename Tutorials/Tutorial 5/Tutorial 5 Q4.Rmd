@@ -1,0 +1,30 @@
+---
+title: "Tutorial 5 Q4"
+author: "Wei Hao Khoong"
+date: "13 March 2019"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q4(b).
+
+```{r}
+t5q4 <- read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/furniture.txt", header=T)
+```
+
+```{r}
+attach(t5q4)
+daysnon0 <- days[days != 20]
+binom.test(sum(daysnon0 > 20), length(daysnon0), alternative="greater")
+```
+
+```{r}
+wilcox.test(daysnon0, mu=20, alternative="greater")
+```
+We have $H_0: \mu = 20$ against $H_1: \mu > 20$. Since Sign test: p-value = 0.0019, Signed rank test: p-value = 0.0009, we reject $H_0$.

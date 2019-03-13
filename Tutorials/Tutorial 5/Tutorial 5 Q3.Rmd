@@ -1,0 +1,24 @@
+---
+title: "Tutorial 5 Q3"
+author: "Wei Hao Khoong"
+date: "13 March 2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q3(b).
+
+```{r}
+t5q3 <- read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/battery.txt", header=T)
+```
+
+```{r}
+attach(t5q3)
+t.test(life, mu=400, conf.level=0.95, alternative="greater")
+```
+Since $H_0$ : $\mu = 400$ against $H_1: \mu > 400$ and $t_{obs} = 1.244 < t_{0.05}(12) = 1.78$ or p-value $= 0.1186$, we do not reject $H_0$. 
