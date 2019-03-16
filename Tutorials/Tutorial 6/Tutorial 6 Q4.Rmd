@@ -1,0 +1,33 @@
+---
+title: "ST2137 Tutorial 6 Q4"
+author: "Wei Hao Khoong"
+date: "17 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q4
+
+### Data Import
+
+```{r}
+t6q4 <- read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/flextime.txt",header=T,sep=" ")
+attach(t6q4)
+```
+
+## Two Related Samples Nonparametric Test
+
+```{r}
+diff <- before - after
+
+# Get number of positive signs
+ncount <- sum(sign(diff[diff>0]))
+
+# Signed test for the difference
+binom.test(ncount, length(diff), 0.5)
+```
+
+We are testing $H_0: \mu_{Diff} = 0$ against $H_1: \mu_{Diff} > 0$. Since the Signed rank test p-vale $=0.1094$, we do not reject $H_0$.

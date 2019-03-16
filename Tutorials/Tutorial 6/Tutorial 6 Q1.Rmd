@@ -1,0 +1,77 @@
+---
+title: "ST2137 Tutorial 6 Q10"
+author: "Wei Hao Khoong"
+date: "16 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q1 (a)
+
+### Data Import
+
+```{r}
+t6q1 <- read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/machine.txt", header=TRUE)
+attach(t6q1)
+```
+
+### Relabelling Columns
+
+```{r}
+old <- strength[machine=="O"]
+new <- strength[machine=="N"]
+```
+
+### QQ Plots
+
+```{r}
+qqnorm(old)
+```
+
+```{r}
+qqnorm(new)
+```
+
+### Test If Variances Are Equal
+
+```{r}
+var.test(new,old)
+```
+
+We need to check the equal variance assumption to decide which t-test to use. According to the F-test, the p-value is $0.4268$ so we conclude that the equal variance assumption holds.
+
+### t-test
+
+```{r}
+t.test(new, old, mu=0, alternative="greater", var.equal=TRUE)
+```
+
+Since we are testing for $H_0 :\mu_N - \mu_O = 0$ against $H_q: \mu_N - \mu_O > 0$, and that $t_{obs} = 3.93 > t_0.05 (98) = 1.66$ or p-value $=7.905 \times 10^{-5}$, we reject $H_0$.
+
+## Q1(b)
+
+We made the assumption that the variances are equal. As above, we have shown that we did not reject the null hypothesis where the variances are equal. 
+
+To check the normality assumption, we employ the Kolmogorov-Smirnov test and look at the QQ plots as well. The results below show that this is a reasonable assumption.
+
+```{r}
+ks.test(old,"pnorm",mean(old),sd(old))
+```
+
+```{r}
+ks.test(new,"pnorm",mean(new),sd(new))
+```
+
+### QQ Plots
+
+```{r}
+par(mfrow=c(2,1))
+qqnorm(old,main="QQ Plot for Old machine")
+qqline(old,lty=2)
+qqnorm(new,main="QQ Plot for New machine")
+qqline(new,lty=2)
+par(mfrow=c(1,1))
+```

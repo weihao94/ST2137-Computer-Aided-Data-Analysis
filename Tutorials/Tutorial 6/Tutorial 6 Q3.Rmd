@@ -1,0 +1,32 @@
+---
+title: "ST2137 Tutorial 6 Q3"
+author: "Wei Hao Khoong"
+date: "16 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q3
+
+### Data Import
+
+```{r}
+t6q3 <- read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/weeklies.txt",header=T,sep=",")
+attach(t6q3)
+```
+
+### Paired t-test
+
+```{r}
+t.test(current,lastyear,paired=T)
+```
+
+Let $\mu_C$ and $\mu_L$ be the mean number of advertising pages in the current issues and the same issue in the previous year respectively. The data points are paired so we will use a paired t-test. We test 
+
+$$H_0: \mu_C - \mu_L = 0 \text{ against } H_1: \mu_C - \mu_L \neq 0$$
+
+Since the observed $t =1.85$ (or p-value $= 0.0803$), we do not reject $H_0$. We conclude that there is insufficient evidence to show a difference in the mean number of advertising pages in the current issues compared to the previous year. A $95\%$ confidence interval estimate of the mean difference in the number of advertising pages in the current issues compared to the previous year is given by $(-21.42, 1.3398)$.
+

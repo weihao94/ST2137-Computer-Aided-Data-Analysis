@@ -1,0 +1,34 @@
+---
+title: "ST2137 Tutorial 6 Q2"
+author: "Wei Hao Khoong"
+date: "16 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q2
+
+### Data Import
+
+```{r}
+t6q2 <- read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/wip.txt", header=TRUE)
+attach(t6q2)
+```
+
+### Group Variables
+
+```{r}
+gp.a <- time[plant==1]
+gp.b <- time[plant==2]
+```
+
+### Wilcoxon Test
+
+```{r}
+wilcox.test(gp.a,gp.b)
+```
+
+We are testing $H_0 : \mu_1 - \mu_2 = 0$ against $H_1: \mu_1 - \mu_2 \neq 0$. From the Wilcoxon rank sum test, we have p-value $=0.0822$. Thus, we do not reject $H_0$. 
