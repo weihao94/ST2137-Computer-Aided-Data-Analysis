@@ -1,0 +1,27 @@
+---
+title: "ST2137 Tutorial 7 Q3"
+author: "Wei Hao Khoong"
+date: "24 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Q3
+
+## Data Import 
+
+```{r}
+t7q3 = read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/batfail.txt", header=T)
+attach(t7q3)
+```
+
+## Kruskal-Wallis rank sum test
+
+```{r}
+kruskal.test(time, group)
+```
+
+Since the p-value $= 0.0077$ for the Kruskal-Wallis test, we reject $H_0$ at the $5\%$ significance level. We conclude that there is sufficient evidence to show that the time to failure are not the same for all the four groups of batteries.

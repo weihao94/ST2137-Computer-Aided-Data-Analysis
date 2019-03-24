@@ -1,0 +1,54 @@
+---
+title: "ST2137 Tutorial 7 Q2"
+author: "Wei Hao Khoong"
+date: "24 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Q2
+
+## Data Import
+
+```{r}
+t7q2 <- read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/locate.txt", header=T)
+attach(t7q2)
+```
+
+## ANOVA Model
+
+Fit an analysis of variance model by a call to `lm` for each stratum.
+
+```{r}
+model1 <- aov(sales~location)
+```
+
+## Model Checking For Normality
+
+```{r}
+mcheck <- function(obj) {
+  rs <- obj$resid
+  fv <- obj$fitted
+  par(mfrow=c(2,1))
+  plot(fv, rs, xlab="Fitted values", ylab="Residuals")
+  abline(h=0, lty=2)
+  qqnorm(rs, xlab="normal scores", ylab="ordered residuals")
+  qqline(rs, lty=2)
+  par(mfrow=c(1,1))
+}
+```
+
+```{r}
+mcheck(model1)
+```
+
+## One-sample Kolmogorov-Smirnov test
+
+```{r}
+ks.test(model1$resid,"pnorm",mean(model1$resid),sd(model1$resid))
+```
+
+The plots and the test show no evidence of violating the normality assumption.

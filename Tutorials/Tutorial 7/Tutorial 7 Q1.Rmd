@@ -1,0 +1,91 @@
+---
+title: "ST2137 Tutorial 7 Q1"
+author: "Wei Hao Khoong"
+date: "24 March 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Q1
+
+## Data Import
+
+```{r}
+t7q1 <- read.table("C:/Users/Wei Hao/Desktop/ST2137/Tutorials/Data/locate.txt", header=T)
+attach(t7q1)
+```
+
+## Model 
+
+```{r}
+model1 <- aov(sales~location)
+```
+
+## Computing LSD
+
+```{r}
+group.1 <- sales[location=="F"]
+group.2 <- sales[location=="M"]
+group.3 <- sales[location=="R"]
+group.means <- tapply(sales,location,mean)
+treat.group <- cbind(group.1,group.2,group.3)
+mse <- sum(model1$res^2)/15
+lsd <- qt(0.975,15)*sqrt(mse*2/6)
+```
+
+### Function to check if the difference of 2 means is greater than LSD
+
+```{r}
+check.lsd<-function(obj,i,j,lsd){
+  mx <- mean(obj[,i])
+  my <- mean(obj[,j])
+  d <- mx - my
+  if(abs(d)>lsd)
+    cat("There is siginificant difference between groups",i,"&",j, "\n",
+    "Means =",mx,",",my," Diff =", d," > LSD =",lsd,"\n")
+  else
+    cat("There is no siginificant difference between groups",i,"&",j,"\n",
+    "Means =",mx,",",my," Diff =", d," < LSD =",lsd,"\n")
+}
+```
+
+## Checking For Significant Differences Between Groups
+
+Let $\mu_1, \mu_2m, \mu_3$ be the average sales for stores with front, middle and rear aisle locations respectively. We are interested to test $H_0: \mu_1 = \mu_2 = \mu_3$ against $H_1: \mu_i \neq \mu_j$, for some $i \neq j$. 
+
+```{r}
+check.lsd(treat.group,1,2,lsd)
+```
+
+```{r}
+check.lsd(treat.group,1,3,lsd)
+```
+
+```{r}
+check.lsd(treat.group,2,3,lsd)
+```
+
+```{r}
+contrasts(location) <- matrix(c(0,-1,1,2,-1,-1), nrow=3)
+contrasts(location)
+```
+
+```{r}
+modelc<-aov(sales~location)
+summary.lm(modelc)
+```
+
+## Q1(a)
+
+Test statistic $F = 13.03$, p-value $= 0.0005$. Since $F_{obs} = 13.03$ is above the critical bound of $F = 3.68$, reject $H_0$. Alternatively, the p-value is smaller than $0.05$, so we reject $H_0$. There is enough evidence to conclude that the average sales volumes in thousands of dollars are different across the three store aisle locations.
+
+## Q1(b)
+
+We see that $|\bar{x_1 } - \bar{x_2 } | > LSD$ and $|\bar{x_1 } - \bar{x_3 } | > LSD$ so the front aisle location is different from the other two locations while the middle and rear locations are not different in terms of the average sales volumes.
+
+## Other Sub-Questions
+
+See SAS code outputs and solutions.
