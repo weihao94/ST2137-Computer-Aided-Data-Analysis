@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/483916/a7c58ae94e1145baa07aa2c747190d71
+bundleId: https://api.rpubs.com/api/v1/document/483916/a7c58ae94e1145baa07aa2c747190d71
+url: http://rpubs.com/khoongweihao/483916
+when: 1554542966.51581
